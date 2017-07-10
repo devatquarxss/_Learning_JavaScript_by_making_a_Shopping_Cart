@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Cart</title>
+  </head>
+  <body>
+    <h1>Cart</h1>
+    <script>
+      //create an array to store
+      //list/index of all item in the cart
+      //empty array,cz when shopping begin,
+      //there's nothing in the cart :P
+      var cart=[];
+
+      //Now we will add objects to the cart/array
+      var item = {name:"Apple", cost:1.99, count:3}; //Creating Obj
+      cart.push(item); //Adding obj to arr
+
+      //Display/Check cart,
+      //what is in the cat now?
+      console.log(cart);
+      //Trying to get individual ele/item/obj
+      console.log(cart[0]);
+      //How to get individual items property
+      console.log(cart[0].name);
+      console.log(cart[0].cost);
+
+      //Trying to display/get item that is not present in the array
+      console.log(cart[1]); //undefined
+
+      //console.log(cart[1].name); //uncaught error :
+      //cannot get property of undefined
+      //This will Break the program
+
+      //Displaying/Asking for key value that dosenot exit in Obj
+      console.log(cart[0].price); //undefined
+    </script>
+  </body>
+</html>

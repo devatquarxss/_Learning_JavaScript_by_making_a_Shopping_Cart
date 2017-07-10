@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <title>Cart</title>
+  </head>
+  <body>
+    <h1>Cart</h1>
+    <script>
+
+      var cart =[];
+      //function to generate object with below listed parameters
+      //name price count
+      //other way of defining function => same as : function Item() {
+      //}
+      var Item = function (name,price,count) {
+        this.name = name
+        this.price = price
+        this.count = count
+      };
+
+      // Functions =>
+
+      //addItemToCart(name,price,count)
+      function addItemToCart(name,price,count) {
+        //check if an item already exist in the cart
+        //if so,increment the count of that item in the cart
+        //instead of adding the item again in the cart separately
+        for(var i in cart){ //for evrey item in cart
+          if (cart[i].name === name){ // if item name matches in cart
+            cart[i].count += count ; //update/increment count of item
+            return; //exit from loop
+          }
+        }
+        var item = new Item(name,price,count);
+        cart.push(item);
+      }
+
+      //calling function -> addItemToCart
+      addItemToCart("Apple",200,1);
+      addItemToCart("Orange",100,2);
+      addItemToCart("Orange",100,1);
+
+      console.log(cart);
+      //to get first item in the cart
+      console.log(cart[0]);
+      //to get one of the property of an object(item) in cart
+      console.log(cart[0].name);
+
+      //removeItemFromCart(name) //remove one item
+      function removeItemFromCart(name) {
+        for(var i in cart) { //for evrey item in cart
+          if(cart[i].name === name){ // if item name matches in cart
+            cart[i].count--;//decrement count of item
+            //remove item from the cart completely,when count become 0
+            //otherwise the count will get negative
+            if(cart[i].count === 0){
+              //Splice will remove the item from the array
+              //first argument -> which item to remove
+              //second argument -> how many item to remove
+              cart.splice(i,1);
+            }
+            break;
+          }
+        }
+      }
+
+      //there are 3 oranges in cart
+      removeItemFromCart("Orange");  //remove 1st one
+      console.log(cart[1].count); //must show 2 item in cart
+
+
+      removeItemFromCart("Orange"); //remove 2nd one
+      removeItemFromCart("Orange"); //remove 3rd one also
+      //now left with 0 oranges in cart
+      //it should not show in the cart
+      console.log(cart); //only 1 item showing in the cart i.e apple
+      console.log(cart.length);
+
+      //removeItemFromCartAll(name) //remove all item of that name
+      function removeItemFromCartAll(name){
+        for(var i in cart){
+          if(cart[i].name === name) {
+            cart.splice(i,1) ;
+              break;
+            }
+        }
+      }
+
+      removeItemFromCartAll("Apple");
+      console.log(cart);
+      console.log(cart.length);
+
+
+      //clearCart()
+      function clearCart() {
+        cart =[];
+      }
+
+      //add few items to the cart
+      addItemToCart("Apple2",50,3);
+      addItemToCart("Orange2",25,5);
+      console.log(cart);
+
+      clearCart(); //calling clearCart
+      console.log(cart); //cart is now Empty
+
+      //countCart() //return totol count
+      function countCart(){
+        var totalCount = 0; //we need a variable to count that starts with 0
+        for(var i in cart){
+          totalCount += cart[i].count; //add count to the variable of each item
+        }
+        return totalCount;
+      }
+
+      console.log(countCart()); // Cart was empty ,countCart cart will return 0
+
+      addItemToCart("Apple2",50,3);
+      addItemToCart("Orange2",25,5);
+      console.log(countCart()); // Cart has 8 items ,countCart cart will return 8
+
+      //totalCart() //return total cost
+      function totalCart(){
+        var totalCost = 0;
+        for(var i in cart){
+          totalCost += cart[i].price;
+        }
+
+        return totalCost;
+      }
+
+      console.log(totalCart());
+
+      //listCart()  //return array of items -> to display cart
+
+      //saveCart() //we will use : Local Storage to save the cart
+
+      //loadcart()
+
+      </script>
+  </body>
+</html>

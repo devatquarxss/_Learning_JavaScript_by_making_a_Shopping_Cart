@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <title>Cart</title>
+  </head>
+  <body>
+    <h1>Cart</h1>
+    <script>
+      //Func is block of code that can be reused
+      //A Func can also be used to generate an Obj
+      //Func =>
+      function myfunction() {
+        console.log("hello world");
+      }
+      //invoking/calling Func
+      myfunction();
+      //can be called multiple no. of times
+      //Benefit ->
+      //If we use Func,we can just edit the code inside Func
+      //to get the change/new result  everywhere
+      //instead of changing the code everywhere.
+      myfunction();
+      myfunction();
+
+      //passing Parameter/Argument into the Func =>
+      //A Func with a Parameter
+      function myfunction2(message){
+        console.log(message);
+      }
+      //invoking/calling the above Func
+      //by passing a Parameter into the Func
+      myfunction2("Hello World2");
+      myfunction2("foo");
+      myfunction2("bar");
+      myfunction2("foo bar");
+      myfunction2(); //undefined
+
+      //A Func with multiple Parameter
+      function myfunction3(message, count){
+        for(var i=0; i<count; i++) {
+          console.log(message);
+        }
+      }
+      //console wont repeat message,
+      //instead will show how many times it is repeated
+      myfunction3("Hello World3", 2);
+      myfunction2("foo", 5);
+
+      //
+      function square(num){
+        return num * num;
+        //we wont see the $$$
+        //as the Func ends after return
+        //so to return multiple values
+        //we will have to group them in a collection
+        //i.e in array or in an object
+        console.log("$$$");
+      }
+      // it wont display 9 in console
+      //as there is no console.log in the Func
+      //instead the Func will return 9
+      square(3);
+      //however, we can print the returned value i.e 9 like this =>
+      //i.e by calling the Func inside console
+      console.log(square(3));
+    </script>
+  </body>
+</html>

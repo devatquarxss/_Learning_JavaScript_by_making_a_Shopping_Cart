@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <title>Cart</title>
+  </head>
+  <body>
+    <h1>Cart</h1>
+    <script>
+      //In Array we can store an element
+      //In an Object we can store an element & also its properties
+      //Eg -> Cart Item Name,Its Price,Quantity etc
+      //Object is collection of elements & its properties
+      //As we can fetch an array element by its index position,
+      //We can fetch an object element and its properties by its key
+      // As an array is denoted by [] an object is denoted by {}
+      var obj = {name:"Apple", cost:200, count:2};
+      //To Display the object
+      console.log(obj);
+      //To get different values from the object
+      console.log(obj.name); //name is key
+      console.log(obj.cost); //cost is key
+      // Benifit of Array - Keeps things in Order by Index
+      // Benifit of Object - Very Descriptive
+      //Therefore in Cart ->
+      //We will use Array to hold items in the Cart
+      //But, every item will be represented as an object
+      //with descriptive properties
+
+      //we cannot do for loop as count
+      for(var key in obj) {
+        console.log(key+" "+obj[key]);
+      }
+
+      //Trying Above for an array
+      //i.e without knowing the lenght of array,displaying content
+      var array=["A","B","C"];
+      //Result is not very Descriptive,but in proper order
+      for(var key in array){
+        console.log(key+" "+array[key]);
+      }
+
+    </script>
+  </body>
+</html>

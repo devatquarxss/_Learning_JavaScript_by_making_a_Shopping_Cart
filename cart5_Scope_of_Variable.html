@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title>Cart</title>
+  </head>
+  <body>
+    <h1>Cart</h1>
+    <script>
+      //scope =>
+      //scope determines where a variable is visible.
+      var global = "Hello" ; //this variable has global scope =>
+      //visible everywhere(in other script also)
+      //this can be a problem while importing script from somewhere else
+      //variable with same name may exist in that script.
+
+      function myFunction() {
+        var global2 = "Hello2"; //scope of variable is only inside
+        //the curly braces of the function
+        console.log(global2);
+      }
+
+      myFunction(); //calling/invoking above function
+
+      console.log(global2);//Uncaught ReferenceError: global2 is not defined
+      //global2 is defined only inside the above function's curly braces
+      //i.e global2 doesnot exist outside the function curly braces
+    </script>
+    <script>
+      console.log(global);//It will print value of global
+      //defined in the above scipt
+
+      var global = 10; //variable redefined
+      console.log(global);//It will print the new value of the variable
+
+      var global3=20;
+      function myFunction2() {
+        console.log(global3); //It will print 20 as defined above
+      }
+      myFunction2();
+    </script>
+  </body>
+</html>

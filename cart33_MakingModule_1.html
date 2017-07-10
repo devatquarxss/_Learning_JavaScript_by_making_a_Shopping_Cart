@@ -1,0 +1,319 @@
+<html>
+  <head>
+    <title>Cart</title>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="cart33_MakingModule_1.js"></script>
+  </head>
+  <body>
+    <h1>Cart</h1>
+		<div>
+			<ul>
+				<li><a class="add-to-cart" href="#" data-name="Apple" data-price="1.22">Apple $1.22</a></li>
+				<li><a class="add-to-cart" href="#" data-name="Banana" data-price="1.33">Banana $1.33</a></li>
+				<li><a class="add-to-cart" href="#" data-name="Shoe" data-price="1.44">Shoe $1.44</a></li>
+				<li><a class="add-to-cart" href="#" data-name="Frisbee" data-price="1.55">Frisbee $1.55</a></li>				
+			</ul>
+			<button id="clear-cart">Clear Cart</button>
+		</div>
+		
+		<div>
+			<ul id="show-cart">
+			</ul>
+			<div>Total Items : <span id="count-cart">0</span><span> | Unique Items: </span><span id="count-cart-2">0</span></div>
+			<div>Total Cart:$<span id="total-cart">0</span></div>
+		</div>
+    
+  </body>
+</html>
+
+<script>
+
+	//all variables are global
+	//they are accesible throught out the progress
+	//may b in othr script same name as cart is there
+	//if that script is called here
+	//that becomes a prob
+	
+	//so,we consolidate our all variable & functions 
+	//into an Object ... 
+	//to  one name to deal with 
+	//we attach all var n func to that obj
+
+/*
+	var obj = {};
+	obj.name="Shivam";
+	obj.age=22;
+	obj.doSomething = function(thing,count){
+		//
+	}; //function name ,do something //func can b a value
+
+	var SS_shoppingCart = {};
+	SS_shoppingCart.cart = [];
+	SS_shoppingCart.Item = function(){};
+	SS_shoppingCart.addItemToCart = function(){};
+
+*/
+
+	
+	
+	/*** JQUERY STUFF ****/
+	
+	
+	
+	 
+	//jquery selector .jquery will select all the items of class -> add-to-cart & it will add a click fucntion to them
+	/*$(".add-to-cart").click(function(event){   //event -> parameter , where u clicked on screen or to use prevent fucn
+		event.preventDefault(); // href ="#" it will jump to top of page , i wna prevent this default behaviour 
+		var name = $(this).attr("data-name"); // this -> in jquery term represent the particular add-to-cart you click among all 
+		var price = Number($(this).attr("data-price")); //price is no but attr will return string 
+		
+		addItemToCart(name,price,1); //call fucn
+		displayCart(); //every time add an itrm display it 
+	});*/
+	
+	// to pass event or use  preventDefault -> addEventListener
+	
+	//note ->
+	//className - click() not work,  so use -> querySelector
+	//id
+	//tagName - > h1 ,p
+	
+	//document.querySelector('.add-to-cart').addEventListener("click",function(event){  -> selectong only one 
+	//document.querySelectorAll('.add-to-cart').addEventListener("click",function(event){  -> wont work as many query selected and only one addevnt list
+	//we need loop to add in all
+	
+	//document.querySelectorAll - > to make event Listner work 
+	
+	
+	
+	
+	
+	var addToCartLink =document.querySelectorAll('.add-to-cart');
+	for (var i = 0; i < addToCartLink.length; i++) {
+		addToCartLink[i].addEventListener('click', function(event) {
+			event.preventDefault();
+				
+			var name = this.getAttribute("data-name");
+			var price = this.getAttribute("data-price");
+			
+			shoppingCart.addItemToCart(name,price,1); //call fucn
+			displayCart(); //every time add an itrm display it 
+		});
+	}
+	
+	//clearCart
+	/*$("#clear-cart").click(function(event){
+		clearCart();
+		displayCart();
+	
+	});*/
+	
+	document.querySelector('#clear-cart').addEventListener('click', function(event) {
+		shoppingCart.clearCart();
+		displayCart();			
+	});
+	
+	
+	
+	
+	function displayCart(){
+		var cartArray = shoppingCart.listCart(); //listcart is not defined -> error
+		//console.log(cartArray.length); //it dislay 0 on refresh
+		var output = "";
+		for(var i in cartArray){
+			output += "<li>"+cartArray[i].name
+			+"<button class='sub-item' data-name='"+cartArray[i].name+"'>-</button>"
+			//+" "+cartArray[i].count
+			+ "<input class='item-count-input' type='number' data-name='"+cartArray[i].name+"' value='"+cartArray[i].count+"'/>"
+			+"<button class='plus-item' data-name='"+cartArray[i].name+"'>+</button>"
+			+" x " +" $" + cartArray[i].price
+			+" = " +" $" +cartArray[i].total
+			+"<button class='delete-item' data-name='"+cartArray[i].name+"'>X</button>"
+			+"</li>"; //just expalined this in 18th video
+		}
+		//$("#show-cart").html(output);
+		document.getElementById('show-cart').innerHTML = output;
+		//Total Cart
+	//$("#total-cart").html( totalCart() );
+	$("#count-cart").html(shoppingCart.countCart());
+	$("#count-cart-2").html(shoppingCart.countCart2());
+	document.getElementById('total-cart').innerHTML = shoppingCart.totalCart();
+	
+	}
+	
+	//below code wont work as delete item is not created
+	//it is dynamically created after below code is done executing
+	//so below code wont work
+	
+/*	
+	//At the time js executes these code 
+	// these delete item class doesnot exist
+	//so lets call displayCart before it 
+	//so that these item will get created cz of listCart()
+	displayCart(); //prob 1 solved
+	// prob 2 -> 
+	//click fucn , u r adding to spec ele on page
+	//if addItem or removeItem
+	//old func working & recalling & updating
+	//BUT BUT BUT , this fucking piece of code
+	//is not gona execute again 
+	$(".delete-item").click(function(event){
+		console.log("clicking"); //not clicking //not coming inside fucn
+	});
+	
+	*/
+	
+	//if  show cart  (exists)
+	//on clicked on show cart
+	//if clicked on delete-item
+	//call fucnt
+	
+	$("#show-cart").on("click",".delete-item",function(event){
+		console.log("clicking Now");
+		 var name = $(this).attr("data-name");
+         shoppingCart.removeItemFromCartAll(name);
+         displayCart();
+	});
+	
+	$('#show-cart').on("click",".sub-item",function(event){
+		console.log("minus item");
+		var name = $(this).attr("data-name");
+		shoppingCart.removeItemFromCart(name);
+		displayCart();
+	});
+	
+	$('#show-cart').on("click",".plus-item",function(event){
+		console.log("plus item");
+		var name = $(this).attr("data-name");
+		shoppingCart.addItemToCart(name,0,1);
+		displayCart();
+	});
+	
+	//input Count
+	$('#show-cart').on("change",".item-count-input",function(event){
+		console.log("change item count");
+		var name = $(this).attr("data-name");
+		var count = Number($(this).val());
+		shoppingCart.setCountForItem(name,count);
+		displayCart();
+	});
+	
+	
+	
+	//in js --method 1 hover bad opt
+	/*document.querySelector('#show-cart').addEventListener('mouseover', function(event) {
+	console.log("clicking Now");
+		//console.log("1");
+		var removeFromCartLink =document.querySelectorAll('.delete-item');
+		//console.log("2");
+		for (var i = 0; i < removeFromCartLink.length; i++) {
+			//console.log("3"); //this is executing 4 times ??? why
+			removeFromCartLink[i].addEventListener('click', function(event) {
+			console.log("clicking Now");
+				//event.preventDefault();
+				//console.log("4"); //why the fuck this is not executing for 1st time
+				var name = this.getAttribute("data-name");
+				//var price = this.getAttribute("data-price");
+				
+				 //console.log(name);
+				 
+				  removeItemFromCartAll(name);
+				  displayCart();
+			});
+		}
+	}); */
+	
+	//method 2 -> for loop //no this :( //if in loop
+	/*document.querySelector('#show-cart').addEventListener('click', function(event) {
+		var removeFromCartLink =document.querySelectorAll('.delete-item');
+		for (var i = 0; i < removeFromCartLink.length; i++) {
+			//console.log(event.target.getAttribute("data-name"));
+			//console.log(removeFromCartLink[i].getAttribute("data-name"));
+			console.log("clicking Now");
+			if (event.target.getAttribute("data-name") == removeFromCartLink[i].getAttribute("data-name")) { //loop check :(
+				console.log("clicking Now");
+				var name = removeFromCartLink[i].getAttribute("data-name");
+				console.log(name);
+				removeItemFromCartAll(name);
+				displayCart();
+				
+			}
+		}
+	});*/
+	
+	//dont know which is faster among them
+	//shoppingCart.loadcart();  why need every time loading
+	displayCart(); //whn page refreshed opend first time shuld display , not only on clicking add item ,so display cart shud be called after loadcart();
+
+/*
+	shoppingCart.cart = [];
+	displayCart();
+	//anyone can acess ,GLOBAL , can b hacked
+	*/
+
+
+/********** OOP *************/ 
+/******* private - public **********/	
+
+/** self invoking fucn **/
+//this func will reutn some val
+// store it in sm var
+//whole object in test
+/*var test = (function(){
+	var cart =[]; // this is not global :)
+	var obj = {};
+	//cannot be accesed from outside,
+	//rest js cnt aces it
+	
+	//the object we return ..we can add prop to tht obj
+	//whn obj is return pub prop ,,cn b available from outside
+	//publicMethod
+	obj.addItem = function(name){
+		cart.push(name);
+	};
+	
+	obj.countCart = function(){
+		console.log("Count Cart: "+cart.length); //this func which is public 
+		//can acess var cart which is private
+		//but from outside var cart cannot b acesed
+	}
+	//add public features
+	//only prop of this obj will be pub 
+	//not cart var iable & obj var will not b public
+	//only prop of obj will b public 
+	//i.e obj.something eg. obj.publicMethod func 
+	//will b public
+	return obj;
+})();
+
+//call countcart from obj tht is returned in test
+//as its child/parameter
+
+test.addItem("Foo");
+test.countCart();
+
+console.log(test.cart); //cannot aces cart from outside/directly
+*/
+//test.cart wont work  or give as opt in ide cz it is nt returned 
+//only obj n thus its childs are returned
+//eg
+//eg(function(){})();
+	
+
+      </script>
+<style>
+	.item-count-input{
+		max-width:40px;
+	}
+<style>
+	  
+	  
+	  <!--
+		1.code specific to this page elements should be here
+		2.Code depended on any lib should b here 
+			otherwise they wont be able to find there lib/wont work without their lib
+			
+		That is fuckin dependecy	
+	  
+	  
+	  -->

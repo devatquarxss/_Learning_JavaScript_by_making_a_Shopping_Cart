@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <title>Cart</title>
+  </head>
+  <body>
+    <h1>Cart</h1>
+    <script>
+        //name price count
+    /*  var cart = [
+        {
+          name:"brush",price:20,count:3
+        },
+        {
+          name:"apple",price:200,count:5
+        }
+      ]; */ //ugly approach
+
+
+      var cart =[];
+      //function to generate object with below listed parameters
+      //name price count
+      //other way of defining function => same as : function Item() {
+      //}
+      var Item = function (name,price,count) {
+        this.name = name
+        this.price = price
+        this.count = count
+      };
+
+      var brush = new Item("brush",20,5); //function will generate
+      //new object with keys
+      //{ name:"brush" , price:20 , count:5 }
+      // & store in variable brush.
+      console.log(brush);
+      cart.push(brush); //now push brush into the cart
+      console.log(cart);
+
+      //direct approach
+      ////directly create & push item into cart
+      // without using another variable like brush
+      cart.push(new Item("Apple",200,3));
+      console.log(cart);
+
+
+    </script>
+  </body>
+</html>
