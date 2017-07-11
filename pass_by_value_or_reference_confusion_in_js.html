@@ -1,0 +1,131 @@
+
+<script>
+	/*** JavaScript is "PASS BY VALUE" by DEFAULT ***/
+	function changeValue(toChange){	
+		toChange = 2 ;
+	}
+	var no = 1 ; //declare a var => no 
+		// set its value to 1
+	console.log(no); // console will print no as => 1
+	changeValue(no); // no is passed into function changeValue ,
+		//toChange var inside function is changed to 1 now
+		//But is the value no is also changed ???? 
+	console.log(no); //NO . It prints 1 again 
+	
+	/*** So in above Eg. => it is pass by value method ,
+		it means => we are not passing actual var (no)
+		instead => we create copy of var no ,save it to toChange var(parametr)
+		
+		Now if it has to be pass by refernce , (done in c,c++)
+		by using pointer ,
+		=> the actual var(no) has to be passed  to the function 
+			instead of copy no to toChange var and then pass.
+		so, if any chng made in the function ,the the actual var is getting
+		 passed the actual var(no) would also get changed
+		 & next time in second console.log(no) would have printed	
+		 2 .
+	***/
+	
+	/**** Things only gets wierd in JS 
+		when => u get into OBJECT PASSING 
+	****/
+	function changeValue(toChange){ //Obj geting pased
+		toChange.value = 2 ; // key of Obj (value) is changed to 2
+	}
+	var obj = { // an another  Obj init
+		value : 1 // value(a key of obj) set 1
+	} 
+	console.log(obj.value); // print 1 
+	changeValue(obj) ; //passing whole Obj in function
+	console.log(obj.value); //print 2 //why ????
+		// how the f*** obj.value got changed ??
+		//why javascript ?
+		//whhy do you do that to me :(
+		//i thot only toChange.value will be change 
+		//not obj.value 
+		// i thot a copy of obj is being created 
+		//copied to toChange
+		//but no no no no ! that's not the case 
+		//here the original object i.e obj
+		//is passed to function
+		//and this is called pass by refernce
+		//when copy is not created 
+		//actual var is passed and if 
+		//further changed inside function
+		//chang is reflected anywhere the var is present
+		
+		/*** here JS is acting as pass by refernce ***/
+		/*** f*** js , love js ***/
+		/*** u f*** wht u love :P ****/
+		
+		/*** Now next eg. will completely f*** ur mind ****/
+		// but ,
+		// before that 
+		//let see smthing more about =>
+		//pass by refernce
+		
+		//so , in above eg .
+		//js is not creating copy of no as changeValue
+		//right ? 
+		//lets dive deep what exactly its doing =>
+		//so behind the scence =>
+		// no copy created in memory ,
+		// so , no two value of var stored in 2 different places
+			//in memory in no two different memory loc
+		//so , there is only 1 placce where the value of our var is stored
+		//what we are doing by pass by refernce
+		//we are creating pointer that is pointing to the same loc in memory
+		// we value is changed their 
+		//its reflected everywhere 
+		
+		/*** the was actual meaning of pass by ref ***/
+		//now next Eg. =>
+		function changeValue(toChange){
+			toChange = 	{
+							value:2
+						};
+			var obj = {value : 1};
+			console.log(obj.value); // print 1
+			changeValue(obj); // again whole obj pased
+			console.log(obj.value); //print 1 ! why ???? damn
+		}
+		/*** IMP ->
+			Javascript is effectively copying the reference,
+			not the referred-to object. 
+			When you call changeValue(obj),
+			you're creating ->
+				two (completely independent) references
+			to the same object
+			
+			Outside of the function, you have obj, 
+			and inside the function, you have toChange.
+			They both refer to the same object in memory,
+			but the reference variables(pointers) themselves are independent.
+			
+			That means that if you modify an individual property,
+			you'll be DEREFERNCING the actual object,
+			
+			**** how???
+			here how we are derefencing ???
+			
+			we are doing ->
+			
+			toChange = {
+				value:2
+				}
+				
+			we assign -> a new obj{value:2} to toChange,
+				having key value:2
+			
+			so we derefernce this toChange pointer ,
+			from old memory loc 
+			to another memory location where this new obj i.e {value:2}
+			is present .
+			
+			 you're changing the reference entirely. 
+			 You're saying 'hey, toChange variable,
+			 point at this new object over here, please.' 
+			 This does not affect obj's reference in any way. 
+			 obj is still referring to our original object. 
+		***/
+	</script>
