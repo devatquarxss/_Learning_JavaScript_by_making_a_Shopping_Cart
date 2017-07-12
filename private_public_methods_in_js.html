@@ -1,0 +1,39 @@
+<script>
+	var test = (function() {
+		/** PRIVATE **/
+		var cart = ["A"] ;
+			//scope of this var cart is only inside
+			//this func
+			//we will make cart a privte 
+			//it means , no one from outside can
+				//directly access it
+				
+		privatefunction = function (){
+			console.log(cart.length);
+		}
+		/** PUBLIC **/
+		var obj = {};
+			// we will return the obj from the 
+				//function, so it will be acessible
+				//from outside on calling the function
+		obj.countCart = function(){
+			console.log(cart.length); // 
+				// but cart can be acesed only 
+				//from inside
+				//i.e by the function => 
+				//of class only ,
+				// so bascially , private var 
+				//are acessed indirectly
+				//they cant be directly changed or manupulated
+		}
+		obj.arr2 = ["B"];
+		return obj;
+	})(); //self invoking func
+	
+	test.countCart(); // ptints 1 
+	//test.privatefunction(); //undefined
+	//console.log(test.cart); // undefined
+	console.log(test.arr2.length); //print 1
+	
+	
+</script>
